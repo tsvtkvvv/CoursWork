@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35431.28
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoursWork", "CoursWork\CoursWork.csproj", "{7F03C939-0631-48BC-9298-1DA1C6126E5E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{FAA79F9C-6BEE-4045-A15D-DA3498AC96B1}"
+	ProjectSection(SolutionItems) = preProject
+		CPUScheduler.cs = CPUScheduler.cs
+		DeviceScheduler.cs = DeviceScheduler.cs
+		idGenerator.cs = idGenerator.cs
+		Memory.cs = Memory.cs
+		MemoryManager.cs = MemoryManager.cs
+		Model.cs = Model.cs
+		Process.cs = Process.cs
+		Resource.cs = Resource.cs
+		Settings.cs = Settings.cs
+		SystemClock.cs = SystemClock.cs
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7F03C939-0631-48BC-9298-1DA1C6126E5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F03C939-0631-48BC-9298-1DA1C6126E5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F03C939-0631-48BC-9298-1DA1C6126E5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F03C939-0631-48BC-9298-1DA1C6126E5E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4E0266E6-DE3E-48B0-8E28-600523C23038}
+	EndGlobalSection
+EndGlobal
