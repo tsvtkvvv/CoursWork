@@ -1,20 +1,13 @@
 ﻿namespace CoursWork
 {
-    public class Settings
+    static public class Settings
     {
-        public double Intensity { get; set; }
-        public int MaxValueOfBurst { get; set; }
-        public int MinValueOfBurst { get; set; }
-        public int MaxValueOfAddrSpace { get; set; }
-        public int MinValueOfAddrSpace { get; set; }
-        public int ValueOfRAMSize { get; set; }
-
-        public Model Model
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public static double Intensity { get; set; }
+        public static int MaxValueOfBurst { get; set; }
+        public static int MinValueOfBurst { get; set; }
+        public static int MaxValueOfAddrSpace { get; set; }
+        public static int MinValueOfAddrSpace { get; set; }
+        public static int ValueOfRAMSize { get; set; }
+        public static double ValueOfAlpha { get; set; }
     }
 }

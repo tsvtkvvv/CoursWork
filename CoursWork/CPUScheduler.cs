@@ -1,9 +1,7 @@
 ﻿using System;
+
 namespace CoursWork
 {
-
-
-
     public class CPUScheduler
     {
         public Resource __resource;
@@ -15,14 +13,6 @@ namespace CoursWork
             __queue = queue ?? throw new ArgumentNullException(nameof(queue));
         }
 
-        public Model Model
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
         public void Session()
         {
             if (__resource.IsFree() && __queue.Count > 0)
@@ -32,15 +22,16 @@ namespace CoursWork
                 __resource.ActiveProcess = process;
             }
         }
+
         public void Execute()
         {
-            if (__resource.ActiveProcess != null)
+            if (!__resource.IsFree())
             {
                 var proc = __resource.ActiveProcess;
                 proc.Status = ProcessStatus.Ready;
-                __resource.Clear(); 
-                __queue.Enqueue(proc, proc.RemainingWorkTime());
-                //Session();
+                __resource.Clear();
+                __queue.Enqueue(proc, proc.UpdateEstimatedTime(Settings.ValueOfAlpha));
+               
             }
         }
     }

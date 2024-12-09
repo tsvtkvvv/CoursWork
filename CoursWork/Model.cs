@@ -1,23 +1,15 @@
-using CoursWork;
-using Process.cs;
-using System;
-using System.Buffers;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms.VisualStyles;
+
+
 
 namespace CoursWork
 {
     public class Model
-
     {
         public SystemClock clock;
         public IdGenerator IdGen;
         public Resource cpu;
         public Resource device;
-        
+
         public PriorityQueue<Process, long> readyQueue;
         public Queue<Process> deviceQueue;
         public Memory ram;
@@ -25,8 +17,6 @@ namespace CoursWork
         public DeviceScheduler devicescheduler;
         public MemoryManager memorymanager;
         public Random processRand;
-        public Settings modelSettings;
-        
 
         public Model()
         {
@@ -41,9 +31,6 @@ namespace CoursWork
             devicescheduler = new DeviceScheduler(device, deviceQueue);
             memorymanager = new MemoryManager();
             processRand = new Random();
-            modelSettings = new Settings();
-           
-
         }
         public PriorityQueue<Process, long> ReadyQueue
         {
@@ -54,72 +41,51 @@ namespace CoursWork
             set => readyQueue = value;
 
         }
-        public Queue<Process> DeviceQueue
-        {
-            get
-            {
-                return deviceQueue;
-            }
-        }
-        public Resource Cpu
-        {
-            get { return cpu; }
-        }
-        public Resource Device
-        {
-            get { return device; }
-        }
-        public Memory Ram
-        {
-            get { return ram; }
-        }
-        public SystemClock Clock
-        {
-            get { return clock; }
-        }
-
-        public Form1 Form1
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public Queue<Process> DeviceQueue => deviceQueue;
+        public Resource Cpu => cpu;
+        public Resource Device => device;
+        public Memory Ram => ram;
+        public SystemClock Clock => clock;
 
         public void SaveSettings()
         {
-            ram.Save(modelSettings.ValueOfRAMSize);
+            ram.Save(Settings.ValueOfRAMSize);
             memorymanager.Save(ram);
         }
 
- 
         public void WorkingCycle()
         {
             clock.WorkingCycle();
-            cpuscheduler.Execute();
-            cpuscheduler.Session();
+
             cpu.WorkingCycle();
+            
+            
 
-            cpuscheduler.Session();
-            devicescheduler.Session();
-            if (processRand.NextDouble() < modelSettings.Intensity)
+            if (processRand.NextDouble() < Settings.Intensity)
             {
-                Process proc = new Process(IdGen.Id, processRand.Next(modelSettings.MinValueOfAddrSpace, modelSettings.MaxValueOfAddrSpace + 1))
-                {
-                    BurstTime = processRand.Next(modelSettings.MinValueOfBurst, modelSettings.MaxValueOfBurst + 1),
-                };
-
-                if (memorymanager.Allocate(proc) != null)
-                {
-                    ReadyQueue.Enqueue(proc, proc.RemainingWorkTime()); // Добавляем процесс в очередь                    
-                }
-                
-                Subscribe(proc);
-                
+                CreateProcess();
+                cpuscheduler.Execute();
             }
+
+            devicescheduler.Session();
+            cpuscheduler.Session();
             
         }
 
+        void CreateProcess()
+        {
+            var proc = new Process(
+                IdGen.Id,
+                processRand.Next(Settings.MinValueOfAddrSpace, Settings.MaxValueOfAddrSpace + 1),
+                processRand.Next(Settings.MinValueOfBurst, Settings.MaxValueOfBurst + 1));
+
+            if (memorymanager.Allocate(proc) != null)
+            {
+                ReadyQueue.Enqueue(proc, proc.UpdateEstimatedTime(Settings.ValueOfAlpha));     
+            }
+
+            Subscribe(proc);
+        }
 
         public void Clear()
         {
@@ -130,10 +96,10 @@ namespace CoursWork
             deviceQueue.Clear();
         }
 
-       
-        private void freeingResourceEventHandler(object obj, EventArgs e)
+        void freeingResourceEventHandler(object obj, EventArgs e)
         {
-            Process proc = obj as Process;
+            var proc = obj as Process;
+
             if (proc == null)
                 return;
 
@@ -145,66 +111,66 @@ namespace CoursWork
                 case ProcessStatus.Ready:
                     if (device.ActiveProcess == proc)
                         device.Clear();
-                    memorymanager.Free(proc);
+                        memorymanager.Free(proc);
                     if (cpu.ActiveProcess == proc)
                         memorymanager.Free(proc);
-
-
-                    if (!ReadyQueue.UnorderedItems.Any(p => p.Element == proc))
-                    {
-                        ReadyQueue.Enqueue(proc, proc.RemainingWorkTime());
-                    }
-
+                    
+                    ReadyQueue.Enqueue(proc, proc.UpdateEstimatedTime(Settings.ValueOfAlpha));
+                    
 
                     Subscribe(proc);
                     break;
 
                 case ProcessStatus.Waiting:
                     if (cpu.ActiveProcess == proc)
-                        memorymanager.Free(proc);
-                    cpu.Clear();
-
-                    if (!DeviceQueue.Contains(proc))
                     {
+                        memorymanager.Free(proc);
+                        cpu.Clear();
+                        proc.ResetWorkTime();
+                        proc.Status = ProcessStatus.Ready;
                         DeviceQueue.Enqueue(proc);
+                        Subscribe(proc);
                     }
-                    Subscribe(proc);
+                    if(device.ActiveProcess == proc)
+                    {
+                        device.Clear();
+                    }
+                    
                     break;
 
                 case ProcessStatus.Terminated:
                     if (cpu.ActiveProcess == proc)
+                    {
                         memorymanager.Free(proc);
-                    cpu.Clear();
+                        cpu.Clear();
+                    }
+                      
+
+                    if(device.ActiveProcess == proc)
+                    {
+                        device.Clear();
+                    }
                     break;
 
 
             }
         }
 
+        void Subscribe(Process proc) => proc.resourceFreeing += freeingResourceEventHandler;
 
-        private void Subscribe(Process proc)
-        {
-            proc.resourceFreeing += freeingResourceEventHandler;
-        }
-        private void Unsubscribe(Process proc)
-        {
-            proc.resourceFreeing -= freeingResourceEventHandler;
-        }
+        void Unsubscribe(Process proc) => proc.resourceFreeing -= freeingResourceEventHandler;
+
         public void initSettings(double intensity, int burstMin, int burstMax, int addrSpaceMin, int addrSpaceMax, int ramSize)
         {
-            modelSettings.Intensity = intensity;
-            modelSettings.MinValueOfBurst = burstMin;
-            modelSettings.MaxValueOfBurst = burstMax;
-            modelSettings.MinValueOfAddrSpace = addrSpaceMin;
-            modelSettings.MaxValueOfAddrSpace = addrSpaceMax;
-            modelSettings.ValueOfRAMSize = ramSize;
+            Settings.Intensity = intensity;
+            Settings.MinValueOfBurst = burstMin;
+            Settings.MaxValueOfBurst = burstMax;
+            Settings.MinValueOfAddrSpace = addrSpaceMin;
+            Settings.MaxValueOfAddrSpace = addrSpaceMax;
+            Settings.ValueOfRAMSize = ramSize;
+            Settings.ValueOfAlpha = 0.9;
 
-            // Инициализация оперативной памяти
             ram.Save(ramSize);
-
-          
-
         }
-
     }
 }

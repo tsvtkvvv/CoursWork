@@ -2,24 +2,11 @@
 
 namespace CoursWork
 {
-
-
     public class MemoryManager
     {
         public Memory memory { get; private set; }
 
-        public Model Model
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public void Save(Memory memory)
-        {
-            this.memory = memory;
-        }
+        public void Save(Memory memory) => this.memory = memory;
 
         public Memory Allocate(Process process)
         {
@@ -29,6 +16,7 @@ namespace CoursWork
                 memory.FreeSize -= process.AddrSpace;
                 return memory;
             }
+
             return null;
         }
 
@@ -38,5 +26,4 @@ namespace CoursWork
             memory.FreeSize += process.AddrSpace;
         }
     }
-
 }

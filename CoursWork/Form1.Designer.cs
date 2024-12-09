@@ -119,7 +119,7 @@
             // 
             cpuActProcTextBox.Location = new Point(3, 23);
             cpuActProcTextBox.Name = "cpuActProcTextBox";
-            cpuActProcTextBox.Size = new Size(345, 27);
+            cpuActProcTextBox.Size = new Size(500, 27);
             cpuActProcTextBox.TabIndex = 2;
             // 
             // flowLayoutPanel2
@@ -268,9 +268,9 @@
             // 
             flowLayoutPanel7.Controls.Add(cpuActProclabel);
             flowLayoutPanel7.Controls.Add(cpuActProcTextBox);
-            flowLayoutPanel7.Location = new Point(88, 160);
+            flowLayoutPanel7.Location = new Point(18, 130);
             flowLayoutPanel7.Name = "flowLayoutPanel7";
-            flowLayoutPanel7.Size = new Size(350, 50);
+            flowLayoutPanel7.Size = new Size(503, 50);
             flowLayoutPanel7.TabIndex = 7;
             // 
             // cpuActProclabel
@@ -286,9 +286,9 @@
             // 
             flowLayoutPanel8.Controls.Add(deviceActProcLabel);
             flowLayoutPanel8.Controls.Add(deviceActProcTextBox);
-            flowLayoutPanel8.Location = new Point(591, 160);
+            flowLayoutPanel8.Location = new Point(550, 130);
             flowLayoutPanel8.Name = "flowLayoutPanel8";
-            flowLayoutPanel8.Size = new Size(351, 50);
+            flowLayoutPanel8.Size = new Size(480, 50);
             flowLayoutPanel8.TabIndex = 8;
             // 
             // deviceActProcLabel
@@ -304,16 +304,16 @@
             // 
             deviceActProcTextBox.Location = new Point(3, 23);
             deviceActProcTextBox.Name = "deviceActProcTextBox";
-            deviceActProcTextBox.Size = new Size(345, 27);
+            deviceActProcTextBox.Size = new Size(477, 27);
             deviceActProcTextBox.TabIndex = 2;
             // 
             // flowLayoutPanel9
             // 
             flowLayoutPanel9.Controls.Add(label3);
             flowLayoutPanel9.Controls.Add(cpuQueueTextBox);
-            flowLayoutPanel9.Location = new Point(88, 232);
+            flowLayoutPanel9.Location = new Point(15, 207);
             flowLayoutPanel9.Name = "flowLayoutPanel9";
-            flowLayoutPanel9.Size = new Size(348, 206);
+            flowLayoutPanel9.Size = new Size(506, 206);
             flowLayoutPanel9.TabIndex = 9;
             // 
             // label3
@@ -329,7 +329,7 @@
             // 
             cpuQueueTextBox.Location = new Point(3, 23);
             cpuQueueTextBox.Name = "cpuQueueTextBox";
-            cpuQueueTextBox.Size = new Size(343, 175);
+            cpuQueueTextBox.Size = new Size(503, 175);
             cpuQueueTextBox.TabIndex = 1;
             cpuQueueTextBox.Text = "";
             // 
@@ -337,9 +337,9 @@
             // 
             flowLayoutPanel10.Controls.Add(label4);
             flowLayoutPanel10.Controls.Add(deviceQueueTextBox);
-            flowLayoutPanel10.Location = new Point(588, 232);
+            flowLayoutPanel10.Location = new Point(547, 207);
             flowLayoutPanel10.Name = "flowLayoutPanel10";
-            flowLayoutPanel10.Size = new Size(348, 206);
+            flowLayoutPanel10.Size = new Size(483, 206);
             flowLayoutPanel10.TabIndex = 10;
             // 
             // label4
@@ -355,7 +355,7 @@
             // 
             deviceQueueTextBox.Location = new Point(3, 23);
             deviceQueueTextBox.Name = "deviceQueueTextBox";
-            deviceQueueTextBox.Size = new Size(343, 175);
+            deviceQueueTextBox.Size = new Size(480, 175);
             deviceQueueTextBox.TabIndex = 1;
             deviceQueueTextBox.Text = "";
             // 
@@ -408,7 +408,7 @@
             // 
             stepLabel.AutoSize = true;
             stepLabel.Font = new Font("Segoe UI", 14F);
-            stepLabel.Location = new Point(499, 267);
+            stepLabel.Location = new Point(282, 469);
             stepLabel.Name = "stepLabel";
             stepLabel.Size = new Size(27, 32);
             stepLabel.TabIndex = 15;

@@ -1,30 +1,16 @@
-﻿
-namespace Process.cs
+﻿namespace CoursWork
 {
-   public class SystemClock
+    public class SystemClock
     {
-        public long Clock {  get; set; }
-        public long clock {
+        public long Clock { get; set; }
+        public long clock
+        {
             get => clock;
             private set => clock = value;
         }
 
-        public CoursWork.Model Model
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public void WorkingCycle() => Clock++;
 
-        public void WorkingCycle()
-        {
-            Clock++;
-        }
-        void Clear()
-        {
-            Clock = 0;
-        }
+        void Clear() => Clock = 0;
     }
-    
 }

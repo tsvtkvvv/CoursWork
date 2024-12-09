@@ -2,114 +2,66 @@
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="CoursWork.Settings">
     <Position X="10.5" Y="1" Width="2" />
-    <AssociationLine Name="Model" Type="CoursWork.Model">
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.088" Y="0.347" />
-      </MemberNameLabel>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAEABAgQAAAEABA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAEABAAQAAAEABE=</HashCode>
       <FileName>Settings.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Model" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="CoursWork.Process">
     <Position X="0.5" Y="3" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>iAAQAAAEIAAAAhAEQAABCAgAIAAEAAAAAAAAAAAAAgA=</HashCode>
+      <HashCode>iAAQAAAEAAAAAgAEQAABCAgAAAAEAAAAAAIAgAAAAgA=</HashCode>
       <FileName>Process.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Resource" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="CoursWork.Model">
     <Position X="7.25" Y="3.75" Width="1.75" />
-    <Members>
-      <Property Name="Form1" Hidden="true" />
-    </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAICKAAAACgAiAIAwQACAAAACAgAASIAKAADIAgA=</HashCode>
+      <HashCode>AAAAAICKAAAACgAiAIAQAACAAAACAgAASIAqAADIAgA=</HashCode>
       <FileName>Model.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Form1" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="CoursWork.MemoryManager">
     <Position X="4" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAIAEAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAIAAAI=</HashCode>
+      <HashCode>AAAAAIAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAI=</HashCode>
       <FileName>MemoryManager.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Model" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="CoursWork.DeviceScheduler">
     <Position X="9.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAASAAAABAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAASAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DeviceScheduler.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Model" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="CoursWork.IdGenerator">
     <Position X="6.25" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAABAAgA=</HashCode>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAgA=</HashCode>
       <FileName>idGenerator.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Model" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="CoursWork.CPUScheduler">
     <Position X="3.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAgAAQQAAAAAAAAAQAAAAAAAAAgAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAgAAQQAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>CPUScheduler.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Model" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="CoursWork.Resource">
     <Position X="5.25" Y="5.25" Width="1.5" />
-    <AssociationLine Name="DeviceScheduler" Type="CoursWork.DeviceScheduler" ManuallyRouted="true">
-      <Path>
-        <Point X="6.75" Y="6.685" />
-        <Point X="5.577" Y="6.685" />
-        <Point X="5.577" Y="7.473" />
-        <Point X="10.25" Y="7.473" />
-        <Point X="10.25" Y="6.95" />
-      </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.836" Y="0.258" />
-      </MemberNameLabel>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>CAAAAIAAAAEAAAEBAAIAAACAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <HashCode>CAAAAIAAAAEAAAEBAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
       <FileName>Resource.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="DeviceScheduler" />
-      <Property Name="CPUScheduler" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="Memory">
     <Position X="1.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IgAAAIAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <HashCode>IgAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
       <FileName>Memory.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="MemoryManager" />
-    </ShowAsAssociation>
   </Class>
   <Enum Name="CoursWork.ProcessStatus">
     <Position X="11.75" Y="4" Width="1.5" />

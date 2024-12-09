@@ -2,57 +2,53 @@ namespace CoursWork
 {
     public partial class Form1 : Form
     {
-        private Model model = new Model();
-        private bool isRunning = false;
+        Model model = new Model();
+        bool isRunning;
 
+        public Form1() => InitializeComponent();
 
-        public Form1()
+        void Form1_Load(object sender, EventArgs e)
         {
-            InitializeComponent();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            //saveSettingsFromNumerics();
+            // saveSettingsFromNumerics();
             model.SaveSettings();
             saveSettingsFromNumerics();
         }
 
-
-        private void minAddrlbl_Click(object sender, EventArgs e)
+        void minAddrlbl_Click(object sender, EventArgs e)
         {
-
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        void timer1_Tick(object sender, EventArgs e)
         {
             model.WorkingCycle();
 
             UpdateProcessDisplay();
             updateRamSizeLabel();
             updateRamBusySizeLabel();
-            //updateProgressBar();
+            // updateProgressBar();
         }
 
-        private void startButt_Click(object sender, EventArgs e)
+        void startButt_Click(object sender, EventArgs e)
         {
             if (!isRunning)
             {
                 timer1.Start();
-                startButt.Text = "Стоп";
+                startButt.Text = "РЎС‚РѕРї";
                 isRunning = true;
             }
             else
             {
                 timer1.Stop();
-                startButt.Text = "Старт";
+                startButt.Text = "РЎС‚Р°СЂС‚";
                 isRunning = false;
             }
         }
-        private void UpdateProcessDisplay()
+
+        void UpdateProcessDisplay()
         {
             cpuQueueTextBox.Clear();
             deviceQueueTextBox.Clear();
+
             foreach (var item in model.cpuscheduler.__queue.UnorderedItems)
             {
                 var process = item.Element;
@@ -62,27 +58,28 @@ namespace CoursWork
 
             foreach (var process in model.DeviceQueue)
             {
-
-                deviceQueueTextBox.AppendText($"Id: {process.id} | Burst time: {process.BurstTime} | Work time: {process.workTime}\n");
+                deviceQueueTextBox.AppendText(process?.ToString() + "\n");
             }
 
             cpuActProcTextBox.Text = model.cpu.ActiveProcess?.ToString().Trim();
-            deviceActProcTextBox.Text = model.device.ActiveProcess?.ToString().Trim();
+            string forReplace = $"Priority [{model.device.ActiveProcess?.estimatedTime}] ";
+            deviceActProcTextBox.Text = model.device.ActiveProcess?.ToString().Replace(forReplace, ""); ;
             stepLabel.Text = model.clock.Clock.ToString();
         }
-        private void saveSettingsFromNumerics()
+
+        void saveSettingsFromNumerics()
         {
             model.initSettings(
-                (double)this.intenistyNumericUpDown.Value,
-                (int)this.minBurstNumericUpDown.Value,
-                (int)this.maxBurstNumericUpDown.Value,
-                (int)this.minAddrNumericUpDown.Value,
-                (int)this.maxAddrNumericUpDown.Value,
-                (int)this.memSizeNumericUpDown.Value
+                (double)intenistyNumericUpDown.Value,
+                (int)minBurstNumericUpDown.Value,
+                (int)maxBurstNumericUpDown.Value,
+                (int)minAddrNumericUpDown.Value,
+                (int)maxAddrNumericUpDown.Value,
+                (int)memSizeNumericUpDown.Value
                 );
         }
 
-        private void nextButt_Click(object sender, EventArgs e)
+        void nextButt_Click(object sender, EventArgs e)
         {
             model.WorkingCycle();
 
@@ -91,25 +88,15 @@ namespace CoursWork
             updateRamBusySizeLabel();
         }
 
-        private void updateRamSizeLabel()
-        {
-            ramSizeLabel.Text = (memSizeNumericUpDown.Value).ToString();
-        }
+        void updateRamSizeLabel() => ramSizeLabel.Text = (memSizeNumericUpDown.Value).ToString();
 
-        private void updateRamBusySizeLabel()
+        void updateRamBusySizeLabel()
         {
-
             occupiedSizeRamSizeLabel.Text = model.memorymanager.memory.OccupiedSize.ToString();
         }
 
-        private void saveButt_Click(object sender, EventArgs e)
-        {
-            saveSettingsFromNumerics();
-        }
+        void saveButt_Click(object sender, EventArgs e) => saveSettingsFromNumerics();
 
-        private void endSessionButt_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        void endSessionButt_Click(object sender, EventArgs e) => Close();
     }
 }

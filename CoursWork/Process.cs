@@ -1,7 +1,5 @@
 ﻿namespace CoursWork
 {
-
-
     public enum ProcessStatus { Ready, Running, Waiting, Terminated }
 
     public class Process
@@ -13,16 +11,17 @@
         public long workTime { get; private set; }
         public long AddrSpace { get; private set; }
         static Random procRand = new Random();
-        private long RemainingTime;
+        public long estimatedTime { get; set; }
 
-        public Process(long pId, long addrSpace)
+        public Process(long pId, long addrSpace, long burstTime)
         {
             id = pId;
             AddrSpace = addrSpace;
 
             Status = ProcessStatus.Ready;
+            BurstTime = burstTime;
+            estimatedTime = BurstTime;
         }
-
 
 
         public void IncreaseWorkTime()
@@ -30,6 +29,7 @@
             if (workTime < BurstTime)
             {
                 workTime++;
+                UpdateEstimatedTime(Settings.ValueOfAlpha);
             }
             else
             {
@@ -47,14 +47,14 @@
             }
         }
 
-        public void ResetWorkTime()
+        public long UpdateEstimatedTime(double alpha)
         {
-            workTime = 0;
+            var remainingTime = BurstTime - workTime;
+            estimatedTime = (long)Math.Round(alpha * remainingTime + (1 - alpha) * estimatedTime);
+            return estimatedTime;
         }
-        public long RemainingWorkTime()
-        {
-            return RemainingTime =  BurstTime - workTime;
-        }
+
+        public void ResetWorkTime() => workTime = 0;
 
         public event EventHandler resourceFreeing;
         public void OnResourceFreeing()
@@ -62,22 +62,21 @@
             if (resourceFreeing != null)
                 resourceFreeing(this, null);
         }
+
         public override string ToString()
         {
-            return $"Process {name} [ID: {id}, Status: {Status}, WorkTime: {workTime}/{BurstTime}]";
+            
+            return "Id: " + id + " " +
+                  "[" + Status + "]" +
+                  " Priority [" + estimatedTime + "]" +
+                  " AddrsSpace" + " [" + AddrSpace + "]" +
+                  " Work time " + "[" + workTime +
+                  "/" + BurstTime + "]";
         }
 
         public ProcessStatus randStatus()
         {
             return procRand.Next(2) == 0 ? ProcessStatus.Terminated : ProcessStatus.Waiting;
-        }
-
-        public Resource Resource
-        {
-            get => default;
-            set
-            {
-            }
         }
     }
 }

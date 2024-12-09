@@ -2,16 +2,8 @@
 {
     public class DeviceScheduler
     {
-        private Resource resource;
+        Resource resource;
         public Queue<Process> queue { get; private set; }
-
-        public Model Model
-        {
-            get => default;
-            set
-            {
-            }
-        }
 
         public DeviceScheduler(Resource resource, Queue<Process> queue)
         {
@@ -19,14 +11,24 @@
             this.queue = queue;
         }
 
-
-
-
         public void Session()
         {
+            if (!resource.IsFree())
+            {
+                var activeProcess = resource.ActiveProcess;
+                activeProcess.IncreaseWorkTime();
+
+                if (activeProcess.workTime > activeProcess.BurstTime)
+                {
+                    activeProcess.Status = ProcessStatus.Terminated;
+                    activeProcess.OnResourceFreeing();
+                }
+            }
+
             if (resource.IsFree() && queue.Count > 0)
             {
                 var process = queue.Dequeue();
+
                 if (resource.ActiveProcess != process)
                 {
                     process.Status = ProcessStatus.Running;
@@ -36,23 +38,6 @@
                 }
             }
 
-            if (!resource.IsFree())
-            {
-                var activeProcess = resource.ActiveProcess;
-                activeProcess.IncreaseWorkTime();
-
-                if (activeProcess.workTime >= activeProcess.BurstTime)
-                {
-                    activeProcess.Status = ProcessStatus.Ready;
-                }
-
-                if (activeProcess.Status == ProcessStatus.Ready)
-                {
-                    Console.WriteLine($"Process {activeProcess.id} finished on the device.");
-                    resource.ActiveProcess = null;
-                }
-            }
         }
     }
-
 }
